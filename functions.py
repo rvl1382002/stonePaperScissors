@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk
 
+#Window control classes------------------------------------------------------------------------------------------
 class sample1:
     def helpClicked(self):
         self.x=1
@@ -36,11 +37,12 @@ class sample1:
     def gotoHomeFromAboutUs(self):
         clearAboutUsWindow()
         homeWindow()
-
     def homefromWZ(self):
         clearWarzoneWindow()
         homeWindow()
 
+
+#functions implementations--------------------------------------------------------------------------------------------
 def exit():
     print("Thanks for visiting")
     root.destroy()
@@ -76,64 +78,48 @@ def clearWarzoneWindow():
     bR3.place_forget()
     bR2.place_forget()
     bB3.place_forget()
-    #seperatorL.place_forget()
-    #seperatorR.place_forget()
+    sL.place_forget()
+    sR.place_forget()
     return 0
 
 
-
+#creating object
 ob1=sample1()
+
+
+#home Window--------------------------------------------------------------------------------------------------------
 def homeWindow():
-    global helpd
-    global head1
-    global head
-    global singlePlayer
-    global doublePlayer
-    global aboutUs
-    global exitButton
-
-
+    global helpd,head1,head,singlePlayer,doublePlayer,aboutUs,exitButton
+    #labels
     head=Label(root, text="Stone Paper Scissors", width="30",font=("bold",50))
     head.place(anchor=CENTER, relx=0.5,rely=0.08)
-
     head1=Label(root, text="Select the mode", width="25", font=("bold",30))
     head1.place(anchor=CENTER, relx=0.5,rely=0.2)
-
+    #buttons
     singlePlayer=Button(root, text="Single Player",bg="green",fg="white",height=7,width=30, command=ob1.singlePlayerClicked)
     singlePlayer.place(anchor=CENTER, relx=0.5,rely=0.35)
-
     doublePlayer = Button(root, text="2-Player", bg="green", fg="white", height=7, width=30,command=ob1.doublePlayerClicked)
     doublePlayer.place(anchor=CENTER, relx=0.5, rely=0.53)
-
     helpd = Button(root, text="HELP", bg="green", fg="white", height=5, width=25, command=ob1.helpClicked)
     helpd.place(anchor=CENTER, relx=0.9, rely=0.9)
-
     aboutUs = Button(root, text="ABOUT US", bg="green", fg="white", height=5, width=25, command=ob1.aboutUsClicked)
     aboutUs.place(anchor=CENTER, relx=0.1, rely=0.9)
-
+    #program flow
     root.resizable(0,0)
     root.mainloop()
 
 
-#---------------------------------------------------------------------------------------------------------------------
-
+#Warzone--------------------------------------------------------------------------------------------------------------------
 def WarzoneWindow(mode):
-    global headL
-    global headR
-    global bL1
-    global bL2
-    global bL3
-    global bR1
-    global bR3
-    global bR2
-    global seperatorL
-    global seperatorR
+    global headL,headR,bL1,bL2,bL3,bR1,bR2,bR3,sL,sR,bB3
+    #Player mode
     if(mode==1):
         player1="Computer"
         player2="Player1"
     else:
         player1="Player1"
         player2="Player2"
+    #label 
     headL=Label(root,text=player1,width="30",font=("bold",30))
     headL.place(anchor=CENTER,relx=0.1,rely=0.1)
     headR=Label(root,text=player2,width="30",font=("bold",30))
@@ -153,25 +139,19 @@ def WarzoneWindow(mode):
     bR3=Button(root,text="Scissor",width="30",height="3",bg="lightblue",command=ob1.bR3_try)
     bR3.place(anchor=CENTER,relx=0.9,rely=0.55)
     #separator
-    separatorL=ttk.Separator(root, orient='vertical')
-    separatorL.place(relx=0.2, rely=0.07,relwidth=0,relheight=1)
-    separatorR=ttk.Separator(root, orient='vertical')
-    separatorR.place(relx=0.8, rely=0.07,relwidth=0,relheight=1)
-
-    global bB3
+    sL=ttk.Separator(root, orient='vertical')
+    sL.place(relx=0.2, rely=0.07,relwidth=0,relheight=1)
+    sR=ttk.Separator(root, orient='vertical')
+    sR.place(relx=0.8, rely=0.07,relwidth=0,relheight=1)
+    #delete(window)
     bB3=Button(root,text="back",width="30",height="3",bg="lightblue",command=ob1.homefromWZ)
     bB3.place(anchor=CENTER,relx=0.5,rely=0.5)
 
 
 #help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
-    global heading
-    global label1
-    global bB1
-
-    heading=Label(root,text="<HELP>",fg="black",font=("bold",50))
-    heading.place(anchor=CENTER, relx=0.5,rely=0.08)
-
+    global heading,label1,bB1
+    #message
     msg='''1.Each Game will have 5 rounds!\n
     2.Player who wins most of the rounds will be winner\n
     3.How to Play:\n
@@ -179,29 +159,30 @@ def helpWindow():
     a)Stone beats sciessor\n
     b)Scissor beats Paper\n
     c)Paper beats Stone'''
-
+    #label(main)
+    heading=Label(root,text="<HELP>",fg="black",font=("bold",50))
+    heading.place(anchor=CENTER, relx=0.5,rely=0.08)
+    #label(msg)
     label1=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
     label1.place(anchor=CENTER, relx=0.5, rely=0.5)
-
+    #Button
     bB1 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.gotoHomeFromHelp)
     bB1.place(anchor=CENTER, relx=0.1, rely=0.1)
 
 
 #aboutUs-----------------------------------------------------------------------------------------------------------------
 def aboutUsWindow():
-    global heading1,label2
+    global heading1,label2,bB2
+    #message
+    msg="We are anonymous for now"
+    #label
     heading1=Label(root,text="About Us",fg="black",font=("bold",50))
     heading1.place(anchor=CENTER, relx=0.5,rely=0.08)
-
-    msg="We are anonymous for now"
-
     label2=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
     label2.place(anchor=CENTER, relx=0.5, rely=0.5)
-
-    global bB2
+    #Button
     bB2 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.gotoHomeFromAboutUs)
     bB2.place(anchor=CENTER, relx=0.1, rely=0.1)
-
 
 
 
