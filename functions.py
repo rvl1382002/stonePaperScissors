@@ -1,11 +1,5 @@
 from tkinter import *
 from tkinter import ttk
-global root
-
-root = Tk()
-root.title("Stone Paper Scissors")
-root.geometry('1300x750')
-
 
 #Window control classes------------------------------------------------------------------------------------------
 class sample1:
@@ -20,10 +14,11 @@ class sample1:
     def singlePlayerClicked(self):
         self.x = 3
         clearWindow1()
+        WarzoneWindow(1)
     def doublePlayerClicked(self):
         self.x = 4
         clearWindow1()
-        WarzoneWindow()
+        WarzoneWindow(2)
     def bL1_try(self):
         x="R1"
     def bL2_try(self):
@@ -42,15 +37,16 @@ class sample1:
     def gotoHomeFromAboutUs(self):
         clearAboutUsWindow()
         homeWindow()
-    def gotoHomeFromWarzone(self):
+    def homefromWZ(self):
         clearWarzoneWindow()
         homeWindow()
 
-        
+
 #functions implementations--------------------------------------------------------------------------------------------
 def exit():
     print("Thanks for visiting")
     root.destroy()
+
 def clearWindow1():
     helpd.place_forget()
     doublePlayer.place_forget()
@@ -59,16 +55,19 @@ def clearWindow1():
     head.place_forget()
     head1.place_forget()
     return 0
+
 def clearHelpWindow():
-    headingH.place_forget()
-    label1H.place_forget()
-    bBH.place_forget()
+    heading.place_forget()
+    label1.place_forget()
+    bB1.place_forget()
     return 0
+
 def clearAboutUsWindow():
-    heading1A.place_forget()
-    label2A.place_forget()
-    backButtonA.place_forget()
+    heading1.place_forget()
+    label2.place_forget()
+    bB2.place_forget()
     return 0
+
 def clearWarzoneWindow():
     headL.place_forget()
     headR.place_forget()
@@ -78,10 +77,11 @@ def clearWarzoneWindow():
     bR1.place_forget()
     bR3.place_forget()
     bR2.place_forget()
+    bB3.place_forget()
     sL.place_forget()
     sR.place_forget()
-    bRB.place_forget()
     return 0
+
 
 #creating object
 ob1=sample1()
@@ -108,15 +108,21 @@ def homeWindow():
     root.resizable(0,0)
     root.mainloop()
 
-    
-#Warzone------------------------------------------------------------------------------------------------------------
-def WarzoneWindow():
-    global headL,headR,bL1,bL2,bL3,bR1,bR2,bR3,sL,sR,bRB
-    print("Warzone called")
-    #labels
-    headL=Label(root,text="Player 1",width="30",font=("bold",30))
+
+#Warzone--------------------------------------------------------------------------------------------------------------------
+def WarzoneWindow(mode):
+    global headL,headR,bL1,bL2,bL3,bR1,bR2,bR3,sL,sR,bB3
+    #Player mode
+    if(mode==1):
+        player1="Computer"
+        player2="Player1"
+    else:
+        player1="Player1"
+        player2="Player2"
+    #label 
+    headL=Label(root,text=player1,width="30",font=("bold",30))
     headL.place(anchor=CENTER,relx=0.1,rely=0.1)
-    headR=Label(root,text="Player 2",width="30",font=("bold",30))
+    headR=Label(root,text=player2,width="30",font=("bold",30))
     headR.place(anchor=CENTER,relx=0.9,rely=0.1)
     #buttons(left)
     bL1=Button(root,text="Stone",width="30",height="3",bg="lightblue",command=ob1.bL1_try)
@@ -138,13 +144,13 @@ def WarzoneWindow():
     sR=ttk.Separator(root, orient='vertical')
     sR.place(relx=0.8, rely=0.07,relwidth=0,relheight=1)
     #delete(window)
-    bRB=Button(root,text="Back",width="30",height="3",bg="green",command=ob1.gotoHomeFromWarzone)
-    bRB.place(anchor=CENTER,relx=0.9,rely=0.9)
+    bB3=Button(root,text="back",width="30",height="3",bg="lightblue",command=ob1.homefromWZ)
+    bB3.place(anchor=CENTER,relx=0.5,rely=0.5)
 
 
 #help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
-    global headingH,label1H,bBH
+    global heading,label1,bB1
     #message
     msg='''1.Each Game will have 5 rounds!\n
     2.Player who wins most of the rounds will be winner\n
@@ -154,33 +160,34 @@ def helpWindow():
     b)Scissor beats Paper\n
     c)Paper beats Stone'''
     #label(main)
-    headingH=Label(root,text="<HELP>",fg="black",font=("bold",50))
-    headingH.place(anchor=CENTER, relx=0.5,rely=0.08)
+    heading=Label(root,text="<HELP>",fg="black",font=("bold",50))
+    heading.place(anchor=CENTER, relx=0.5,rely=0.08)
     #label(msg)
-    label1H=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
-    label1H.place(anchor=CENTER, relx=0.5, rely=0.5)
+    label1=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
+    label1.place(anchor=CENTER, relx=0.5, rely=0.5)
     #Button
-    bBH=Button(root,text="Back",fg="red",width="30",height="3",command=ob1.gotoHomeFromHelp,bg="green")
-    bBH.place(anchor=CENTER, relx=0.1, rely=0.1)
+    bB1 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.gotoHomeFromHelp)
+    bB1.place(anchor=CENTER, relx=0.1, rely=0.1)
 
 
 #aboutUs-----------------------------------------------------------------------------------------------------------------
 def aboutUsWindow():
-    global heading1A,label2A,backButtonA
+    global heading1,label2,bB2
     #message
     msg="We are anonymous for now"
     #label
-    heading1A=Label(root,text="About Us",fg="black",font=("bold",50))
-    heading1A.place(anchor=CENTER, relx=0.5,rely=0.08)
-    label2A=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
-    label2A.place(anchor=CENTER, relx=0.5, rely=0.5)
+    heading1=Label(root,text="About Us",fg="black",font=("bold",50))
+    heading1.place(anchor=CENTER, relx=0.5,rely=0.08)
+    label2=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
+    label2.place(anchor=CENTER, relx=0.5, rely=0.5)
     #Button
-    backButtonA=Button(root,text="Back",fg="red",width="30",height="3",command=ob1.gotoHomeFromAboutUs,bg="green")
-    backButtonA.place(anchor=CENTER, relx=0.1, rely=0.1)
+    bB2 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.gotoHomeFromAboutUs)
+    bB2.place(anchor=CENTER, relx=0.1, rely=0.1)
 
 
 
 
-
-
-
+global root
+root = Tk()
+root.title("Stone Paper Scissors")
+root.geometry('1300x750')
