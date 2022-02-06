@@ -13,10 +13,11 @@ class sample1:
     def singlePlayerClicked(self):
         self.x = 3
         clearWindow1()
+        WarzoneWindow(1)
     def doublePlayerClicked(self):
         self.x = 4
         clearWindow1()
-        WarzoneWindow()
+        WarzoneWindow(2)
     def bL1_try(self):
         x="R1"
     def bL2_try(self):
@@ -36,6 +37,10 @@ class sample1:
         clearAboutUsWindow()
         homeWindow()
 
+    def homefromWZ(self):
+        clearWarzoneWindow()
+        homeWindow()
+
 def exit():
     print("Thanks for visiting")
     root.destroy()
@@ -52,25 +57,33 @@ def clearWindow1():
 def clearHelpWindow():
     heading.place_forget()
     label1.place_forget()
-    bB.place_forget()
+    bB1.place_forget()
     return 0
 
 def clearAboutUsWindow():
     heading1.place_forget()
     label2.place_forget()
-    backButton.place_forget()
+    bB2.place_forget()
     return 0
 
-def clearWindow4():
-    #a.place_forget()
+def clearWarzoneWindow():
+    headL.place_forget()
+    headR.place_forget()
+    bL1.place_forget()
+    bL2.place_forget()
+    bL3.place_forget()
+    bR1.place_forget()
+    bR3.place_forget()
+    bR2.place_forget()
+    bB3.place_forget()
+    #seperatorL.place_forget()
+    #seperatorR.place_forget()
     return 0
 
 
 
 ob1=sample1()
 def homeWindow():
-    #global root
-    #root=Tk()
     global helpd
     global head1
     global head
@@ -98,14 +111,13 @@ def homeWindow():
     aboutUs = Button(root, text="ABOUT US", bg="green", fg="white", height=5, width=25, command=ob1.aboutUsClicked)
     aboutUs.place(anchor=CENTER, relx=0.1, rely=0.9)
 
-
     root.resizable(0,0)
     root.mainloop()
 
 
 #---------------------------------------------------------------------------------------------------------------------
 
-def WarzoneWindow():
+def WarzoneWindow(mode):
     global headL
     global headR
     global bL1
@@ -116,11 +128,15 @@ def WarzoneWindow():
     global bR2
     global seperatorL
     global seperatorR
-    print("Warzone called")
-    #labels
-    headL=Label(root,text="Player 1",width="30",font=("bold",30))
+    if(mode==1):
+        player1="Computer"
+        player2="Player1"
+    else:
+        player1="Player1"
+        player2="Player2"
+    headL=Label(root,text=player1,width="30",font=("bold",30))
     headL.place(anchor=CENTER,relx=0.1,rely=0.1)
-    headR=Label(root,text="Player 2",width="30",font=("bold",30))
+    headR=Label(root,text=player2,width="30",font=("bold",30))
     headR.place(anchor=CENTER,relx=0.9,rely=0.1)
     #buttons(left)
     bL1=Button(root,text="Stone",width="30",height="3",bg="lightblue",command=ob1.bL1_try)
@@ -142,12 +158,16 @@ def WarzoneWindow():
     separatorR=ttk.Separator(root, orient='vertical')
     separatorR.place(relx=0.8, rely=0.07,relwidth=0,relheight=1)
 
+    global bB3
+    bB3=Button(root,text="back",width="30",height="3",bg="lightblue",command=ob1.homefromWZ)
+    bB3.place(anchor=CENTER,relx=0.5,rely=0.5)
+
 
 #help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
     global heading
     global label1
-    global bB
+    global bB1
 
     heading=Label(root,text="<HELP>",fg="black",font=("bold",50))
     heading.place(anchor=CENTER, relx=0.5,rely=0.08)
@@ -163,14 +183,13 @@ def helpWindow():
     label1=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
     label1.place(anchor=CENTER, relx=0.5, rely=0.5)
 
-    bB=Button(root,text="Back",fg="red",width="30",height="3",command=ob1.gotoHomeFromHelp())
-    bB.place(anchor=CENTER, relx=0.1, rely=0.1)
+    bB1 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.gotoHomeFromHelp)
+    bB1.place(anchor=CENTER, relx=0.1, rely=0.1)
 
 
 #aboutUs-----------------------------------------------------------------------------------------------------------------
 def aboutUsWindow():
     global heading1,label2
-    global backButton
     heading1=Label(root,text="About Us",fg="black",font=("bold",50))
     heading1.place(anchor=CENTER, relx=0.5,rely=0.08)
 
@@ -178,10 +197,10 @@ def aboutUsWindow():
 
     label2=Label(root, text=msg,fg="black",font=("bold",15),borderwidth=10,relief=SUNKEN,justify=LEFT)
     label2.place(anchor=CENTER, relx=0.5, rely=0.5)
-    
-    backButton=Button(root,text="Back",fg="red",width="30",height="3",command=ob1.gotoHomeFromAboutUs())
-    backButton.place(anchor=CENTER, relx=0.1, rely=0.1)
 
+    global bB2
+    bB2 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.gotoHomeFromAboutUs)
+    bB2.place(anchor=CENTER, relx=0.1, rely=0.1)
 
 
 
