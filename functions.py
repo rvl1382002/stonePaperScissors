@@ -40,7 +40,35 @@ class sample1:
     def homefromWZ(self):
         clearWarzoneWindow()
         homeWindow()
-
+    def change_name1(self):
+        bRE1.place_forget()
+        inputtxt1.place(anchor=CENTER,relx=0.1,rely=0.1)
+        headL.place_forget()
+        save_button1.place(anchor=CENTER,relx=0.175,rely=0.1)
+        
+    def change_name2(self):
+        bLE2.place_forget()
+        inputtxt2.place(anchor=CENTER,relx=0.9,rely=0.1)
+        headR.place_forget()
+        save_button2.place(anchor=CENTER,relx=0.825,rely=0.1)        
+    def save_i1(self):
+        player1=inputtxt1.get(1.0,3.0)
+        headL.config(text=player1)
+        inputtxt1.place_forget()
+        print(player2)
+        headL.place(anchor=CENTER,relx=0.1,rely=0.125)
+        save_button1.place_forget()
+        bRE1.place(anchor=CENTER,relx=0.175,rely=0.1)
+    
+    def save_i2(self):
+        player2=inputtxt2.get(1.0,3.0)
+        headR.config(text=player2)
+        inputtxt2.place_forget()
+        print(player1)
+        headR.place(anchor=CENTER,relx=0.9,rely=0.125)
+        save_button2.place_forget()
+        bLE2.place(anchor=CENTER,relx=0.825,rely=0.1)
+    
 
 #functions implementations--------------------------------------------------------------------------------------------
 def exit():
@@ -80,6 +108,8 @@ def clearWarzoneWindow():
     bB3.place_forget()
     sL.place_forget()
     sR.place_forget()
+    bRE1.place_forget()
+    bLE2.place_forget()
     return 0
 
 
@@ -111,7 +141,7 @@ def homeWindow():
 
 #Warzone--------------------------------------------------------------------------------------------------------------------
 def WarzoneWindow(mode):
-    global headL,headR,bL1,bL2,bL3,bR1,bR2,bR3,sL,sR,bB3
+    global headL,headR,bL1,bL2,bL3,bR1,bR2,bR3,sL,sR,bB3,bRE1,bLE2,player1,player2,inputtxt2,inputtxt1,save_button1,save_button2
     #Player mode
     if(mode==1):
         player1="Computer"
@@ -138,15 +168,26 @@ def WarzoneWindow(mode):
     bR2.place(anchor=CENTER,relx=0.9,rely=0.4)
     bR3=Button(root,text="Scissor",width="30",height="3",bg="lightblue",command=ob1.bR3_try)
     bR3.place(anchor=CENTER,relx=0.9,rely=0.55)
+    #buttons(edit)
+    bRE1=Button(root,text="▼",width="2",height="1",bg="green",command=ob1.change_name1)
+    bRE1.place(anchor=CENTER,relx=0.175,rely=0.1)
+    bLE2=Button(root,text="▼",width="2",height="1",bg="green",command=ob1.change_name2)
+    bLE2.place(anchor=CENTER,relx=0.825,rely=0.1)
     #separator
     sL=ttk.Separator(root, orient='vertical')
     sL.place(relx=0.2, rely=0.07,relwidth=0,relheight=1)
     sR=ttk.Separator(root, orient='vertical')
     sR.place(relx=0.8, rely=0.07,relwidth=0,relheight=1)
-    #delete(window)
+    #delete(button)
     bB3=Button(root,text="back",width="30",height="3",bg="lightblue",command=ob1.homefromWZ)
     bB3.place(anchor=CENTER,relx=0.5,rely=0.5)
-
+    #input(box)
+    inputtxt2= Text(root,height = 1,width = 21)
+    inputtxt1= Text(root,height = 1,width = 21)
+    #save(button)
+    save_button2=Button(root,text="\u2713",width="2",height="1",bg="green",command=ob1.save_i2)
+    save_button1=Button(root,text="\u2713",width="2",height="1",bg="green",command=ob1.save_i1)
+        
 
 #help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
