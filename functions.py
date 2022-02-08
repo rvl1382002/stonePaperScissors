@@ -1,6 +1,5 @@
 from tkinter import *
-from tkinter import ttk
-from PIL import ImageTk ,Image
+
 class player:
     def __init__(self,n):
         self.name=n
@@ -38,6 +37,7 @@ class sample1:
 
     def bL2_try(self):
         x = "P1"
+        print("clicked paper1")
 
     def bL3_try(self):
         x = "S1"
@@ -130,8 +130,8 @@ def clearWarzoneWindow():
     bR3.place_forget()
     bR2.place_forget()
     bB3.place_forget()
-    sL.place_forget()
-    sR.place_forget()
+    #sL.place_forget()
+    #sR.place_forget()
     bRE1.place_forget()
     bLE2.place_forget()
     return 0
@@ -164,14 +164,16 @@ def homeWindow():
     root.resizable(0, 0)
     root.mainloop()
 
+def stone1clicked():
+    print("HELlo")
+# Warzone-------------------------------------------------------------------------------------------------------------------
 
-# Warzone--------------------------------------------------------------------------------------------------------------------
 def WarzoneWindow(mode):
     global headL, headR, bL1, bL2, bL3, bR1, bR2, bR3, sL, sR, bB3, bRE1, bLE2, player1, player2, inputtxt2, inputtxt1, save_button1, save_button2
 
-    stoneImg = PhotoImage(file="stone.png")
-    paperImg = PhotoImage(file="paper.png")
-    scissorImg = PhotoImage(file="scissors.png")
+    stoneImg = PhotoImage(file=r"stone.png").subsample(3,3)
+    paperImg = PhotoImage(file=r"paper.png").subsample(3,3)
+    scissorImg = PhotoImage(file=r"scissors.png").subsample(3,3)
 
     # Player mode
     if (mode == 1):
@@ -188,12 +190,11 @@ def WarzoneWindow(mode):
     # buttons(player1)
 
 
-    bL1 = Button(root, image=stoneImg, command=ob1.bL1_try)
+    bL1 = Button(root, text="stone", image=stoneImg, command=ob1.bL1_try)
     bL1.place(anchor=CENTER, relx=0.1, rely=0.25)
 
 
     bL2 = Button(root, image=paperImg,command=ob1.bL2_try)
-    #bL2.pack()
     bL2.place(anchor=CENTER, relx=0.1, rely=0.43)
     bL3 = Button(root, image=scissorImg,command=ob1.bL3_try)
     bL3.place(anchor=CENTER, relx=0.1, rely=0.61)
@@ -209,11 +210,7 @@ def WarzoneWindow(mode):
     bRE1.place(anchor=CENTER, relx=0.175, rely=0.15)
     bLE2 = Button(root, text="✎", width="2", height="1", bg="green", command=ob1.change_name2)
     bLE2.place(anchor=CENTER, relx=0.825, rely=0.15)
-    # separator
-    sL = ttk.Separator(root, orient='vertical')
-    sL.place(relx=0.2, rely=0.07, relwidth=0, relheight=1)
-    sR = ttk.Separator(root, orient='vertical')
-    sR.place(relx=0.8, rely=0.07, relwidth=0, relheight=1)
+
     # delete(button)
     bB3 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.homefromWZ)
     bB3.place(anchor=CENTER, relx=0.5, rely=0.5)
@@ -223,6 +220,11 @@ def WarzoneWindow(mode):
     # save(button)
     save_button2 = Button(root, text="\u2713", width="2", height="1", bg="green", command=ob1.save_i2)
     save_button1 = Button(root, text="\u2713", width="2", height="1", bg="green", command=ob1.save_i1)
+    # separator
+    sL = ttk.Separator(root, orient='vertical')
+    sL.place(relx=0.2, rely=0.07, relwidth=0, relheight=1)
+    sR = ttk.Separator(root, orient='vertical')
+    sR.place(relx=0.8, rely=0.07, relwidth=0, relheight=1)
 
 
 # help----------------------------------------------------------------------------------------------------------------
