@@ -2,10 +2,58 @@ from tkinter import *
 from tkinter import ttk
 
 class player:
-    def __init__(self,n):
-        self.name=n
+    def __init__(self):
+        self.name=None
         self.score=0
-        self.choice=None
+        self.choice=None #stone=1; paper=2; scissor=3
+
+class selection:
+    def stoneP1(self):
+        p1.choice=1
+        disable(1)
+        print(1)
+
+    def paperP1(self):
+        p1.choice=2
+        disable(1)
+        print(2)
+
+    def scissorP1(self):
+        p1.choice=3
+        disable(1)
+        print(3)
+
+    def stoneP2(self):
+        p2.choice=1
+        disable(2)
+        print(4)
+
+    def paperP2(self):
+        p2.choice=2
+        disable(2)
+        print(5)
+
+    def scissorP2(self):
+        p2.choice=3
+        disable(2)
+        print(6)
+
+def disable(plyr):
+    if(plyr==1):
+        bL1["state"]=DISABLED
+        bL2["state"]=DISABLED
+        bL3["state"]=DISABLED
+    else:
+        bR1["state"]=DISABLED
+        bR2["state"]=DISABLED
+        bR3["state"]=DISABLED
+def enable():
+    bL1["state"]=NORMAL
+    bL2["state"]=NORMAL
+    bL3["state"]=NORMAL
+    bR1["state"]=NORMAL
+    bR2["state"]=NORMAL
+    bR3["state"]=NORMAL
 
 # Window control classes------------------------------------------------------------------------------------------
 class sample1:
@@ -20,42 +68,23 @@ class sample1:
         aboutUsWindow()
 
     def singlePlayerClicked(self):
+        global rounds
+        global p1,p2
+        rounds=0
         self.x = 3
         clearWindow1()
-        p1=player("Computer")
-        p2=player("Player1")
+        p1.name="Computer"
+        p2.name="Player1"
         WarzoneWindow(1)
 
     def doublePlayerClicked(self):
+        global p1,p2, rounds
+        rounds=0
         self.x = 4
         clearWindow1()
-        p1=player("Player1")
-        p2=player("Player2")
+        p1.name="Player1"
+        p2.name="Player2"
         WarzoneWindow(2)
-
-    def bL1_try(self):
-        x = "R1"
-        print(1)
-
-    def bL2_try(self):
-        x = "P1"
-        print("clicked paper1")
-
-    def bL3_try(self):
-        x = "S1"
-        print(2)
-
-    def bR1_try(self):
-        x = "R2"
-        print(3)
-
-    def bR2_try(self):
-        x = "P2"
-        print(4)
-
-    def bR3_try(self):
-        x = "S2"
-        print(6)
 
     def gotoHomeFromHelp(self):
         clearHelpWindow()
@@ -118,13 +147,11 @@ def clearHelpWindow():
     bB1.place_forget()
     return 0
 
-
 def clearAboutUsWindow():
     heading1.place_forget()
     label2.place_forget()
     bB2.place_forget()
     return 0
-
 
 def clearWarzoneWindow():
     headL.place_forget()
@@ -140,11 +167,10 @@ def clearWarzoneWindow():
     sR.place_forget()
     bRE1.place_forget()
     bLE2.place_forget()
+    cross.place_forget()
+    score.place_forget()
+    roundCount.place_forget()
     return 0
-
-
-# creating object
-ob1 = sample1()
 
 
 # home Window--------------------------------------------------------------------------------------------------------
@@ -171,10 +197,20 @@ def homeWindow():
 # Warzone-------------------------------------------------------------------------------------------------------------------
 def WarzoneWindow(mode):
     global headL, headR, bL1, bL2, bL3, bR1, bR2, bR3, bB3, bRE1, bLE2, player1, player2, inputtxt2, inputtxt1, save_button1, save_button2
-    global sL, sR, stoneImg, paperImg, scissorImg
+    global sL, sR, stoneImg, paperImg, scissorImg, cross, score, roundCount
+
     stoneImg = PhotoImage(file=r"stone.png").subsample(3,3)
     paperImg = PhotoImage(file=r"paper.png").subsample(3,3)
     scissorImg = PhotoImage(file=r"scissors.png").subsample(3,3)
+
+    #roundcount
+    currentRound="Round "+str(rounds+1)
+    roundCount=Label(root,text=currentRound,width=8,font=("bold",30))
+    roundCount.place(anchor=CENTER,relx=0.5,rely=0.2)
+
+    #score:
+    score=Label(root, text="Score", width=5, font=("bold",40))
+    score.place(anchor=CENTER,relx=0.5, rely=0.05)
 
     # Player mode
     if (mode == 1):
@@ -190,24 +226,23 @@ def WarzoneWindow(mode):
     headR.place(anchor=CENTER, relx=0.9, rely=0.1)
 
     # buttons(player1)
-    bL1 = Button(root, image=stoneImg, command=ob1.bL1_try)
+    bL1 = Button(root, image=stoneImg, command=s.stoneP1)
     bL1.place(anchor=CENTER, relx=0.1, rely=0.28)
 
-    bL2 = Button(root, image=paperImg,command=ob1.bL2_try)
+    bL2 = Button(root, image=paperImg, command=s.paperP1)
     bL2.place(anchor=CENTER, relx=0.1, rely=0.46)
 
-    bL3 = Button(root, image=scissorImg,command=ob1.bL3_try)
+    bL3 = Button(root, image=scissorImg, command=s.scissorP1)
     bL3.place(anchor=CENTER, relx=0.1, rely=0.64)
 
-
     # buttons(player2)
-    bR1 = Button(root, image=stoneImg, command=ob1.bR1_try)
+    bR1 = Button(root, image=stoneImg, command=s.stoneP2)
     bR1.place(anchor=CENTER, relx=0.9, rely=0.28)
 
-    bR2 = Button(root, image=paperImg, command=ob1.bR2_try)
+    bR2 = Button(root, image=paperImg, command=s.paperP2)
     bR2.place(anchor=CENTER, relx=0.9, rely=0.46)
 
-    bR3 = Button(root, image=scissorImg, command=ob1.bR3_try)
+    bR3 = Button(root, image=scissorImg, command=s.scissorP2)
     bR3.place(anchor=CENTER, relx=0.9, rely=0.64)
 
     # buttons(edit)
@@ -217,9 +252,9 @@ def WarzoneWindow(mode):
     bLE2 = Button(root, text="✎", width="2", height="1", bg="green", command=ob1.change_name2)
     bLE2.place(anchor=CENTER, relx=0.825, rely=0.15)
 
-    # delete(button)
+    # back(button)
     bB3 = Button(root, text="back", width="30", height="3", bg="lightblue", command=ob1.homefromWZ)
-    bB3.place(anchor=CENTER, relx=0.5, rely=0.5)
+    bB3.place(anchor=CENTER, relx=0.5, rely=0.8)
     # input(box)
     inputtxt2 = Text(root, height=1, width=21)
     inputtxt1 = Text(root, height=1, width=21)
@@ -231,6 +266,10 @@ def WarzoneWindow(mode):
     sL.place(relx=0.2, rely=0.07, relwidth=0, relheight=1)
     sR = ttk.Separator(root, orient='vertical')
     sR.place(relx=0.8, rely=0.07, relwidth=0, relheight=1)
+
+    #war
+    cross=Label(root, text='x', width="1", font=("bold", 50))
+    cross.place(anchor=CENTER,relx=0.5,rely=0.5)
 
 # help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
@@ -271,5 +310,11 @@ def aboutUsWindow():
 
 global root
 root = Tk()
+
+# creating object
+ob1 = sample1()
+s = selection()
 root.title("Stone Paper Scissors")
 root.geometry('1300x750')
+p1=player()
+p2=player()
