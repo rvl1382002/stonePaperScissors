@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 
 class player:
     def __init__(self,n):
@@ -34,6 +35,7 @@ class sample1:
 
     def bL1_try(self):
         x = "R1"
+        print(1)
 
     def bL2_try(self):
         x = "P1"
@@ -41,15 +43,19 @@ class sample1:
 
     def bL3_try(self):
         x = "S1"
+        print(2)
 
     def bR1_try(self):
         x = "R2"
+        print(3)
 
     def bR2_try(self):
         x = "P2"
+        print(4)
 
     def bR3_try(self):
         x = "S2"
+        print(6)
 
     def gotoHomeFromHelp(self):
         clearHelpWindow()
@@ -130,8 +136,8 @@ def clearWarzoneWindow():
     bR3.place_forget()
     bR2.place_forget()
     bB3.place_forget()
-    #sL.place_forget()
-    #sR.place_forget()
+    sL.place_forget()
+    sR.place_forget()
     bRE1.place_forget()
     bLE2.place_forget()
     return 0
@@ -150,11 +156,9 @@ def homeWindow():
     head1 = Label(root, text="Select the mode", width="25", font=("bold", 30))
     head1.place(anchor=CENTER, relx=0.5, rely=0.2)
     # buttons
-    singlePlayer = Button(root, text="Single Player", bg="green", fg="white", height=7, width=30,
-                          command=ob1.singlePlayerClicked)
+    singlePlayer = Button(root, text="Single Player", bg="green", fg="white", height=7, width=30,command=ob1.singlePlayerClicked)
     singlePlayer.place(anchor=CENTER, relx=0.5, rely=0.35)
-    doublePlayer = Button(root, text="2-Player", bg="green", fg="white", height=7, width=30,
-                          command=ob1.doublePlayerClicked)
+    doublePlayer = Button(root, text="2-Player", bg="green", fg="white", height=7, width=30,command=ob1.doublePlayerClicked)
     doublePlayer.place(anchor=CENTER, relx=0.5, rely=0.53)
     helpd = Button(root, text="HELP", bg="green", fg="white", height=5, width=25, command=ob1.helpClicked)
     helpd.place(anchor=CENTER, relx=0.9, rely=0.9)
@@ -164,13 +168,10 @@ def homeWindow():
     root.resizable(0, 0)
     root.mainloop()
 
-def stone1clicked():
-    print("HELlo")
 # Warzone-------------------------------------------------------------------------------------------------------------------
-
 def WarzoneWindow(mode):
-    global headL, headR, bL1, bL2, bL3, bR1, bR2, bR3, sL, sR, bB3, bRE1, bLE2, player1, player2, inputtxt2, inputtxt1, save_button1, save_button2
-
+    global headL, headR, bL1, bL2, bL3, bR1, bR2, bR3, bB3, bRE1, bLE2, player1, player2, inputtxt2, inputtxt1, save_button1, save_button2
+    global sL, sR, stoneImg, paperImg, scissorImg
     stoneImg = PhotoImage(file=r"stone.png").subsample(3,3)
     paperImg = PhotoImage(file=r"paper.png").subsample(3,3)
     scissorImg = PhotoImage(file=r"scissors.png").subsample(3,3)
@@ -187,27 +188,32 @@ def WarzoneWindow(mode):
     headL.place(anchor=CENTER, relx=0.1, rely=0.1)
     headR = Label(root, text=player2, width="30", font=("bold", 30))
     headR.place(anchor=CENTER, relx=0.9, rely=0.1)
+
     # buttons(player1)
-
-
-    bL1 = Button(root, text="stone", image=stoneImg, command=ob1.bL1_try)
-    bL1.place(anchor=CENTER, relx=0.1, rely=0.25)
-
+    bL1 = Button(root, image=stoneImg, command=ob1.bL1_try)
+    bL1.place(anchor=CENTER, relx=0.1, rely=0.28)
 
     bL2 = Button(root, image=paperImg,command=ob1.bL2_try)
-    bL2.place(anchor=CENTER, relx=0.1, rely=0.43)
+    bL2.place(anchor=CENTER, relx=0.1, rely=0.46)
+
     bL3 = Button(root, image=scissorImg,command=ob1.bL3_try)
-    bL3.place(anchor=CENTER, relx=0.1, rely=0.61)
+    bL3.place(anchor=CENTER, relx=0.1, rely=0.64)
+
+
     # buttons(player2)
     bR1 = Button(root, image=stoneImg, command=ob1.bR1_try)
-    bR1.place(anchor=CENTER, relx=0.9, rely=0.25)
+    bR1.place(anchor=CENTER, relx=0.9, rely=0.28)
+
     bR2 = Button(root, image=paperImg, command=ob1.bR2_try)
-    bR2.place(anchor=CENTER, relx=0.9, rely=0.43)
+    bR2.place(anchor=CENTER, relx=0.9, rely=0.46)
+
     bR3 = Button(root, image=scissorImg, command=ob1.bR3_try)
-    bR3.place(anchor=CENTER, relx=0.9, rely=0.61)
+    bR3.place(anchor=CENTER, relx=0.9, rely=0.64)
+
     # buttons(edit)
     bRE1 = Button(root, text="✎", width="2", height="1", bg="green", command=ob1.change_name1)
     bRE1.place(anchor=CENTER, relx=0.175, rely=0.15)
+
     bLE2 = Button(root, text="✎", width="2", height="1", bg="green", command=ob1.change_name2)
     bLE2.place(anchor=CENTER, relx=0.825, rely=0.15)
 
@@ -225,7 +231,6 @@ def WarzoneWindow(mode):
     sL.place(relx=0.2, rely=0.07, relwidth=0, relheight=1)
     sR = ttk.Separator(root, orient='vertical')
     sR.place(relx=0.8, rely=0.07, relwidth=0, relheight=1)
-
 
 # help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
