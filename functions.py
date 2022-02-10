@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+import random
 
 class player:
     def __init__(self):
@@ -11,32 +12,76 @@ class selection:
     def stoneP1(self):
         p1.choice=1
         disable(1)
+        display_choice_p1(1)
         print(1)
 
     def paperP1(self):
         p1.choice=2
         disable(1)
+        display_choice_p1(2)
         print(2)
 
     def scissorP1(self):
         p1.choice=3
         disable(1)
+        display_choice_p1(3)
         print(3)
 
     def stoneP2(self):
         p2.choice=1
         disable(2)
+        display_choice_p2(1)
         print(4)
 
     def paperP2(self):
         p2.choice=2
         disable(2)
+        display_choice_p2(2)
         print(5)
 
     def scissorP2(self):
         p2.choice=3
         disable(2)
+        display_choice_p2(3)
         print(6)
+        
+#defining choice
+def display_choice_p1(value):
+    if(value==1):
+        choice_img1=stoneImg
+    elif(value==2):
+        choice_img1=paperImg
+    else:
+        choice_img1=scissorImg
+    choice_player1.config(image=choice_img1)
+    choice_player1.place(anchor=CENTER,relx=0.35,rely=0.5)
+
+def random_animation():
+    time=['200','100','175','150','125']
+    choice_player1_Ani.after(random.choice(time), random_animation)
+    labels=[stoneImg,paperImg,scissorImg]
+    image = random.choice(labels)
+    choice_player1_Ani.config(image=image)
+    
+        
+def display_choice_p2(value):
+    if(value==1):
+        choice_img2=stoneImg
+    elif(value==2):
+        choice_img2=paperImg
+    else:
+        choice_img2=scissorImg
+    choice_player2.config(image=choice_img2)
+    choice_player2.place(anchor=CENTER,relx=0.65,rely=0.5)
+    
+    if(mode_value==1):
+        choice_player1_Ani.place_forget()
+        labels=[stoneImg,paperImg,scissorImg]
+        choice_img1=random.choice(labels)
+        choice_player1.config(image=choice_img1)
+        choice_player1.place(anchor=CENTER,relx=0.35,rely=0.5)
+    
+       
 
 def disable(plyr):
     if(plyr==1):
@@ -170,7 +215,11 @@ def clearWarzoneWindow():
     cross.place_forget()
     score.place_forget()
     roundCount.place_forget()
+    choice_player1.place_forget()
+    choice_player2.place_forget()
+    choice_player1_Ani.place_forget()
     return 0
+
 
 
 # home Window--------------------------------------------------------------------------------------------------------
@@ -196,10 +245,11 @@ def homeWindow():
 
 # Warzone-------------------------------------------------------------------------------------------------------------------
 def WarzoneWindow(mode):
-    global headL, headR, bL1, bL2, bL3, bR1, bR2, bR3, bB3, bRE1, bLE2, player1, player2, inputtxt2, inputtxt1, save_button1, save_button2
-    global sL, sR, stoneImg, paperImg, scissorImg, cross, score, roundCount
+    global headL, headR, bL1, bL2, bL3, bR1, bR2, bR3, bB3, bRE1, bLE2, player1, player2, inputtxt2, inputtxt1, save_button1, save_button2,choice_player1,choice_player2
+    global sL, sR, stoneImg, paperImg, scissorImg, cross, score, roundCount,choice_img1,choice_img2,mode_value,choice_player1_Ani
+    mode_value=mode
 
-    stoneImg = PhotoImage(file=r"stone.png").subsample(3,3)
+    stoneImg = PhotoImage(file=r'stone.png').subsample(3,3)
     paperImg = PhotoImage(file=r"paper.png").subsample(3,3)
     scissorImg = PhotoImage(file=r"scissors.png").subsample(3,3)
 
@@ -270,6 +320,18 @@ def WarzoneWindow(mode):
     #war
     cross=Label(root, text='x', width="1", font=("bold", 50))
     cross.place(anchor=CENTER,relx=0.5,rely=0.5)
+
+    #choice display
+    choice_player1=Label(root,image=None)
+    choice_player2=Label(root,image=None)
+    choice_player1_Ani=Label(root,image=None)
+
+    
+    if(mode==1):
+        disable(1)
+        random_animation()
+        choice_player1_Ani.place(anchor=CENTER,relx=0.35,rely=0.5)
+        
 
 # help----------------------------------------------------------------------------------------------------------------
 def helpWindow():
